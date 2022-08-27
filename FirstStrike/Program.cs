@@ -36,9 +36,20 @@ namespace FirstStrike
 
             var key = Util.GetInputFromUser("Input file key:",      Converters.StringToKey);
 
+            var fileName = ifi.Name;
+            fileName = fileName[..fileName.IndexOf(".pack.zs.enc")];
+
             var summary = Summary.Parse(summaryfi);
 
-            var ivSource = $"{summary.FestResourceID}.pack.zs";
+            string ivSource;
+            if (fileName == "base")
+            {
+                ivSource = $"{summary.FestResourceID}.pack.zs";
+            }
+            else
+            {
+                ivSource = $"{summary.FestResourceID}_{fileName}.pack.zs";
+            }
 
             var ofi = new FileInfo(ifi.FullName.Replace(".zs.enc", ""));
 
